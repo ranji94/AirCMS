@@ -9,7 +9,6 @@ import org.apache.commons.net.ftp.FTPReply;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class FtpClient {
@@ -28,7 +27,7 @@ public class FtpClient {
         ftp = new FTPClient();
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
 
-        ftp.connect(credentials.getServer(), credentials.getPort());
+        ftp.connect(credentials.getFtpServer(), credentials.getPort());
         int reply = ftp.getReplyCode();
 
         if(!FTPReply.isPositiveCompletion(reply)) {
@@ -37,7 +36,7 @@ public class FtpClient {
             throw new IOException(failedMessage);
         }
 
-        ftp.login(credentials.getUser(), credentials.getPassword());
+        ftp.login(credentials.getFtpUser(), credentials.getPassword());
         return ftp.getStatus();
     }
 

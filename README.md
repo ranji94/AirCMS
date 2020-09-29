@@ -1,2 +1,3 @@
 # AirCMS Service
-AirCMS (Content Management System) is service used by my customers, to manage content in webpages developed by me, which have been installed on remote servers.
+AirCMS (Content Management System) is service of application for customers, to manage content in webpages compatible with AirCMS software. Main idea of this application is to change approach of Content Management Systems to use CMS engine via cloud, and to avoid installing CMS on remote hosting (use only cloud CMS connectors instead of it).
+This cloud AirCMS application allows to perform desired actions by customers and web developers, like generating "development-ready" AirCMS connected webpage template on remote server, manage newsfeed and static resources, application themes and to handle popular CRUD actions on database installed in remote server, via cloud application (inspired by Serverless architecture). 

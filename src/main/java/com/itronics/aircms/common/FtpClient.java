@@ -1,15 +1,15 @@
-package com.itronics.aircms.utils;
+package com.itronics.aircms.common;
 
-import com.itronics.aircms.model.FTPConnectionCredentials;
+import com.itronics.aircms.domain.FTPConnectionCredentials;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class FtpClient {
@@ -24,7 +24,7 @@ public class FtpClient {
         return instance;
     }
 
-    public void open() throws IOException {
+    public String open() throws IOException {
         ftp = new FTPClient();
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
 
@@ -38,6 +38,7 @@ public class FtpClient {
         }
 
         ftp.login(credentials.getUser(), credentials.getPassword());
+        return ftp.getStatus();
     }
 
     public Collection<String> listFiles(String path) throws IOException {
@@ -49,6 +50,38 @@ public class FtpClient {
 
     void close() throws IOException {
         ftp.disconnect();
+    }
+
+    public String downloadFile(String fileRemote, String fileSource) throws IOException {
+        File downloadedFile = new File(fileSource);
+        String status = "FAILED";
+        try {
+            OutputStream out = new BufferedOutputStream(new FileOutputStream(downloadedFile));
+            boolean success = ftp.retrieveFile(fileRemote, out);
+            out.close();
+            status = success ? "File downloaded successfully." : "Cannot download file" ;
+        } catch (FileNotFoundException e) {
+            status = "File not found. Stacktrace: " + e;
+        }
+
+        return status;
+    }
+
+    public String uploadFile(String localFileName, String remotePath) throws IOException {
+        File localFile = new File(localFileName);
+        InputStream inputStream = new FileInputStream(localFile);
+        boolean done = ftp.storeFile(remotePath, inputStream);
+        inputStream.close();
+
+        if(done) {
+            return "File uploaded successfully";
+        }
+
+        return "File upload failed";
+    }
+
+    public boolean isConnected() {
+        return ftp == null ? false : ftp.isConnected();
     }
 
     public FTPConnectionCredentials getCredentials() {

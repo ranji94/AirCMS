@@ -1,4 +1,4 @@
-package com.itronics.aircms.model;
+package com.itronics.aircms.domain;
 
 public class FTPConnectionCredentials {
     private String server;
@@ -6,38 +6,27 @@ public class FTPConnectionCredentials {
     private String user;
     private String password;
 
-    public FTPConnectionCredentials() { }
+    public FTPConnectionCredentials(String server, Integer port, String user, String password) {
+        this.server = server;
+        this.port = port;
+        this.user = user;
+        this.password = password;
+    }
 
     public String getServer() {
         return server;
-    }
-
-    public void setServer(String server) {
-        this.server = server;
     }
 
     public int getPort() {
         return port;
     }
 
-    public void setPort(int port) {
-        this.port = port;
-    }
-
     public String getUser() {
         return user;
     }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     @Override

@@ -1,8 +1,8 @@
 package com.itronics.aircms.rest;
 
 import com.itronics.aircms.api.controller.FTPConnectionRestAdapter;
-import com.itronics.aircms.domain.FTPConnectionCredentials;
 import com.itronics.aircms.common.FtpClient;
+import com.itronics.aircms.domain.FTPConnectionCredentials;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

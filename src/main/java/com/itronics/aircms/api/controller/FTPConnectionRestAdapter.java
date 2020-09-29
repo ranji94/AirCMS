@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public interface FTPConnectionRestAdapter {
-    @RequestMapping(method = RequestMethod.GET, value = "/api/ftp/connect")
+    @RequestMapping(method = RequestMethod.POST, value = "/api/ftp/connect")
     public ResponseEntity<String> connect(@RequestParam("user") String user,
                                           @RequestParam("password") String password,
                                           @RequestParam("port") int port,

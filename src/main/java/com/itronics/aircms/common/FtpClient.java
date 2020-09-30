@@ -1,6 +1,7 @@
 package com.itronics.aircms.common;
 
 import com.itronics.aircms.domain.FTPConnectionCredentials;
+import com.itronics.aircms.domain.FTPConnectionStatus;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
@@ -23,7 +24,7 @@ public class FtpClient {
         return instance;
     }
 
-    public String open() throws IOException {
+    public FTPConnectionStatus open() throws IOException {
         ftp = new FTPClient();
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
 
@@ -37,7 +38,13 @@ public class FtpClient {
         }
 
         ftp.login(credentials.getFtpUser(), credentials.getPassword());
-        return ftp.getStatus();
+
+        FTPConnectionStatus status = new FTPConnectionStatus();
+        status.setConnected(ftp.isConnected());
+        status.setConnectedUser(credentials.getFtpUser());
+        status.setConnectedServer(credentials.getFtpServer());
+
+        return status;
     }
 
     public Collection<String> listFiles(String path) throws IOException {

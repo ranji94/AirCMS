@@ -22,10 +22,13 @@ public class FTPOperationsService {
 
     public List<News> downloadNewsFeed() throws IOException {
         FtpClient ftpClient = FtpClient.getInstance();
-        String downloadStatus = ftpClient.downloadFile("/" + NEWS_FILENAME, NEWS_FILENAME);
-        logger.info(String.format("[DownloadNewsFeed] Download news status: %s", downloadStatus));
-
-        return new ArrayList<>(Arrays.asList(gson.fromJson(new FileReader(NEWS_FILENAME), News[].class)));
+        if(ftpClient.isConnected()) {
+            String downloadStatus = ftpClient.downloadFile("/" + NEWS_FILENAME, NEWS_FILENAME);
+            logger.info(String.format("[DownloadNewsFeed] Download news status: %s", downloadStatus));
+            return new ArrayList<>(Arrays.asList(gson.fromJson(new FileReader(NEWS_FILENAME), News[].class)));
+        } else {
+         return new ArrayList<>();
+        }
     }
 
     public List<News> uploadNewsFeed(List<News> newsList) throws IOException {

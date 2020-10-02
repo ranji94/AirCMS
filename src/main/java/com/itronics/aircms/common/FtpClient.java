@@ -47,15 +47,20 @@ public class FtpClient {
         return status;
     }
 
+    public FTPConnectionStatus disconnect() throws IOException {
+        FTPConnectionStatus status = new FTPConnectionStatus();
+        status.setConnected(false);
+
+        ftp.disconnect();
+
+        return status;
+    }
+
     public Collection<String> listFiles(String path) throws IOException {
         FTPFile[] files = ftp.listFiles(path);
         return Arrays.stream(files)
                 .map(FTPFile::getName)
                 .collect(Collectors.toList());
-    }
-
-    void close() throws IOException {
-        ftp.disconnect();
     }
 
     public String downloadFile(String fileRemote, String fileSource) throws IOException {

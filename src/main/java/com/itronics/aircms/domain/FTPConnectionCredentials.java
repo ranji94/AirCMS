@@ -22,6 +22,8 @@ public class FTPConnectionCredentials {
         this.password = password;
     }
 
+    public FTPConnectionCredentials() {}
+
     public String getFtpServer() {
         return ftpServer;
     }

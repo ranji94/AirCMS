@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface FTPConnectionCredentialsRepository extends CrudRepository<FTPConnectionCredentials, Long> {
     List<FTPConnectionCredentials> findByFtpServer(String FtpServer);
+    List<FTPConnectionCredentials> findAll();
 }

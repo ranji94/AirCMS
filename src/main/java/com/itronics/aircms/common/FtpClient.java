@@ -56,7 +56,11 @@ public class FtpClient {
         return status;
     }
 
-    public Collection<String> listFiles(String path) throws IOException {
+    public FTPFile[] listFiles(String path) throws IOException {
+        return ftp.listFiles(path);
+    }
+
+    public Collection<String> listFilesCollection(String path) throws IOException {
         FTPFile[] files = ftp.listFiles(path);
         return Arrays.stream(files)
                 .map(FTPFile::getName)
@@ -64,8 +68,8 @@ public class FtpClient {
     }
 
     public String downloadFile(String fileRemote, String fileSource) throws IOException {
-        File downloadedFile = new File(fileSource);
-        String status = "FAILED";
+        final File downloadedFile = new File(fileSource);
+        String status;
         try {
             OutputStream out = new BufferedOutputStream(new FileOutputStream(downloadedFile));
             boolean success = ftp.retrieveFile(fileRemote, out);
@@ -89,6 +93,18 @@ public class FtpClient {
         }
 
         return "File upload failed";
+    }
+
+    public String getRemoteAddress() {
+        if (ftp == null) {
+            return null;
+        } else {
+            if (ftp.getRemoteAddress() == null) {
+               return null;
+            }
+        }
+
+        return ftp.getRemoteAddress().getHostName();
     }
 
     public boolean isConnected() {

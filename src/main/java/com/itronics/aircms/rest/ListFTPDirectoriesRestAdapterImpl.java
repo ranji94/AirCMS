@@ -23,7 +23,7 @@ public class ListFTPDirectoriesRestAdapterImpl implements ListFTPDirectoriesRest
         FtpClient ftpClient = FtpClient.getInstance();
         try {
             if(ftpClient.isConnected()) {
-                return new ResponseEntity<>(ftpClient.listFiles("/"), HttpStatus.OK);
+                return new ResponseEntity<>(ftpClient.listFilesCollection("/"), HttpStatus.OK);
             }
             else {
                 return new ResponseEntity<>(new ArrayList<>(Collections.singletonList("Please establish FTP connection, before listing directories.")), HttpStatus.FORBIDDEN);

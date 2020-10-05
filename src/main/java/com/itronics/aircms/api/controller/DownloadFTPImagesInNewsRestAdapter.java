@@ -1,6 +1,7 @@
 package com.itronics.aircms.api.controller;
 
-import org.springframework.http.HttpEntity;
+import com.itronics.aircms.domain.FTPDownloadStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,7 +11,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface DownloadFTPImagesInNewsRestAdapter {
-    @RequestMapping(method = RequestMethod.GET, value = "/api/ftp/download/imagesDir")
+    @RequestMapping(method = RequestMethod.GET, value = "/api/ftp/download/imgDirInfo")
     @ResponseBody
-    public List<HttpEntity<byte[]>> getFTPImagesInNews(@RequestParam("newsId") String newsId) throws IOException;
+    public ResponseEntity<List<FTPDownloadStatus>> getFTPImagesInNews(@RequestParam("newsId") String newsId) throws IOException;
 }

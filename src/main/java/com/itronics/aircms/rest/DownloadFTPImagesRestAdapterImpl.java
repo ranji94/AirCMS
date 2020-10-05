@@ -4,7 +4,7 @@ import com.itronics.aircms.api.controller.DownloadFTPImagesRestAdapter;
 import com.itronics.aircms.bizz.FTPOperationsService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ public class DownloadFTPImagesRestAdapterImpl implements DownloadFTPImagesRestAd
     FTPOperationsService ftpOperationsService;
 
     @Override
-    public HttpEntity<byte[]> getFTPImage(String fileName, String newsId) throws IOException {
+    public ResponseEntity<byte[]> getFTPImage(String fileName, String newsId) throws IOException {
         logger.info(String.format("REQUESTED FOR IMAGE: %s, newsID: %s", fileName, newsId));
         return ftpOperationsService.downloadImage(fileName, newsId);
     }

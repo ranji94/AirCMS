@@ -4,6 +4,7 @@ public class FTPConnectionStatus {
     private boolean isConnected;
     private String connectedUser;
     private String connectedServer;
+    private FTPClientStatus clientStatus;
 
     public FTPConnectionStatus() { }
 
@@ -29,5 +30,13 @@ public class FTPConnectionStatus {
 
     public void setConnectedServer(String connectedServer) {
         this.connectedServer = connectedServer;
+    }
+
+    public FTPClientStatus getClientStatus() {
+        return clientStatus;
+    }
+
+    public void setClientStatus(FTPClientStatus clientStatus) {
+        this.clientStatus = clientStatus;
     }
 }
